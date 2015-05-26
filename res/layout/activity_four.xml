@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fon"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/textname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:hint="Имя коробля"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/textbuild"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="Строительство"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/textfate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="Судьба"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" >
+
+                <EditText
+                    android:id="@+id/textdisp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Водоизм."
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/textlength"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Длина"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/textwidth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Ширина"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/textdraft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Осадка"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" >
+
+                <EditText
+                    android:id="@+id/textcrew"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Экипаж"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/textpower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Мощность ДВ"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/textspeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Скорость"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/textdist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Дальн. Плав."
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/textengine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:hint="Движитель"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/textart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Артиллерия"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/textantaircr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Зенитная артиллерия"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/textairgr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Авиационная группа"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="13sp" />
+
+            <Spinner
+                android:id="@+id/class_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/country_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonsave"
+                android:onClick="addOrEditShip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Сохранить" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
+

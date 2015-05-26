@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Справочник кораблей</string>
+    <string name="check_box1">Линкор</string>
+    <string name="check_box2">Крейсер</string>
+    <string name="check_box3">Эсминец</string>
+    <string name="check_box4">Авианосец</string>
+    <string name="butt_nation1">СССР</string>
+    <string name="butt_nation2">Япония</string>
+    <string name="butt_nation3">США</string>
+    <string name="butt_nation4">Германия</string>
+    <string name="butt_add_ship">Добавить Корабль</string>
+    <string name="act3_vodoizm">Водоизм.</string>
+    <string name="act3_length">Длина</string>
+    <string name="act3_width">Ширина</string>
+    <string name="act3_draft">Осадка</string>
+    <string name="act3_crew">Экипаж</string>
+    <string name="act3_power">Мощность ДВ</string>
+    <string name="act3_speed">Скорость</string>
+    <string name="act3_engine">Движитель</string>
+    <string name="act3_dal">Дальность плавания</string>
+    <string name="act3_art">Артиллерия</string>
+    <string name="act3_zen">Зенитная группа</string>
+    <string name="act3_avia">Авиационная группа</string>
+    <string name="del_ship">Удалить корабль</string>
+    <string name="dialog_yes">Ну наверно..</string>
+    <string name="dialog_no">Нет</string>
+</resources>
