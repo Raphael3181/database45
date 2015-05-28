@@ -26,7 +26,6 @@ public class ListActivity extends Activity {
 		setContentView(R.layout.activity_second);
 		act = this;
 		setCapture();
-		nameFromBase();
 	}
 	@Override
 	protected void onResume() {

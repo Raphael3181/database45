@@ -17,7 +17,6 @@ public class DetailsActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		act = this;
 		setContentView(R.layout.activity_three);
-		loadInfo();
 	}
 	@Override
 	protected void onResume() {
