@@ -29,13 +29,11 @@ public class DetailsActivity extends Activity{
 	public void loadInfo() {
     	SQLiteDatabase db = new DBHelper(this, "ships.sqlite").getWritableDatabase();
     	intent = getIntent();
-    	String selection = "_id = '" + intent.getStringExtra("id") + "'";
-		Cursor c = db.query("s_ships", null, selection, null, null, null, null);
-		if(c.moveToFirst()){
-			Cursor d = db.query("s_class", null, "_id = '" + c.getInt(c.getColumnIndex("class_id")) + "'", null, null, null, null);
-			d.moveToFirst();
-			((TextView)findViewById(R.id.textname)).setText(d.getString(d.getColumnIndex("class_name"))+ " "+ c.getString(c.getColumnIndex("name")));
-			d.close();
+    	String columns = "name, building, fate, displacement, length, width, draft, crew, power, speed, distance, engine, artillery, antiaircraft, air_group";
+    	String[] args = { intent.getStringExtra("id") };
+    	Cursor c = db.rawQuery("select " + columns + ", class_name from s_ships a, s_class where a._id = ? and s_class._id = a.class_id", args);
+		if(c.moveToFirst()) {
+			((TextView)findViewById(R.id.textname)).setText(c.getString(c.getColumnIndex("class_name"))+ " " + c.getString(c.getColumnIndex("name")));
 			((TextView)findViewById(R.id.textbuild)).setText(c.getString(c.getColumnIndex("building")));
 			((TextView)findViewById(R.id.textfate)).setText(c.getString(c.getColumnIndex("fate")));
 			((TextView)findViewById(R.id.textdisp)).setText(getString(R.string.act3_vodoizm) + "\n" +c.getInt(c.getColumnIndex("displacement")));
