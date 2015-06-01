@@ -17,6 +17,7 @@ public class EditActivity extends Activity{
 	Intent intent;
 	EditText name, build, fate, disp, length, width, draft, crew, power, speed, dist, engine, art, antiAir, airGroup;
 	Spinner country_id, class_id;
+	int country=1, cls=1;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_four);
@@ -72,6 +73,8 @@ public class EditActivity extends Activity{
 			art.setText(c.getString(c.getColumnIndex("artillery")));
 			antiAir.setText(c.getString(c.getColumnIndex("antiaircraft")));
 			airGroup.setText(c.getString(c.getColumnIndex("air_group")));
+			country=c.getInt(c.getColumnIndex("country_id"));
+			cls=c.getInt(c.getColumnIndex("class_id"));
 		}
 		c.close();
 		db.close();	
@@ -131,5 +134,7 @@ public class EditActivity extends Activity{
 	    country_id.setAdapter(adapter);
 		c.close();
 		db.close();
+		country_id.setSelection(country-1);
+		class_id.setSelection(cls-1);
 	}
 }

@@ -24,7 +24,7 @@
                 android:layout_marginRight="25dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:hint="Имя коробля"
+                android:hint="Имя корабля"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
