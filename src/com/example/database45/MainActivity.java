@@ -42,9 +42,9 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, ListActivity.class);  
 		switch (v.getId()){ //Добавляем в intent информацию о выбранноый стране
 			case R.id.butt_nation1:intent.putExtra("Country", 1);break;
-			case R.id.butt_nation2:intent.putExtra("Country", 2);break;
-			case R.id.butt_nation3:intent.putExtra("Country", 3);break;
-			case R.id.butt_nation4:intent.putExtra("Country", 4);break;	
+			case R.id.butt_nation2:intent.putExtra("Country", 3);break;
+			case R.id.butt_nation3:intent.putExtra("Country", 2);break;
+			//case R.id.butt_nation4:intent.putExtra("Country", 4);break;	
 		}//добавляем информацию о выбранных классах
 		if (cb1.isChecked())intent.putExtra("Линкор", true);
 		if (cb2.isChecked())intent.putExtra("Крейсер", true);

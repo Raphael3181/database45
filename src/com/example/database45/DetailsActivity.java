@@ -27,8 +27,8 @@ public class DetailsActivity extends Activity{
 	 * Загрузка подробной информации о выбранном корабле
 	 */
 	public void loadInfo() {
-    	SQLiteDatabase db = new DBHelper(this, "ships.sqlite").getWritableDatabase();
-    	intent = getIntent();
+		/*SQLiteDatabase db = new DBHelper(this, "ships.sqlite").getWritableDatabase();
+		intent = getIntent();
     	String columns = "name, building, fate, displacement, length, width, draft, crew, power, speed, distance, engine, artillery, antiaircraft, air_group";
     	String[] args = { intent.getStringExtra("id") };
     	Cursor c = db.rawQuery("select " + columns + ", class_name from s_ships a, s_class where a._id = ? and s_class._id = a.class_id", args);
@@ -50,7 +50,19 @@ public class DetailsActivity extends Activity{
 			((TextView)findViewById(R.id.textairgr)).setText(getString(R.string.act3_avia) + "\n" +c.getString(c.getColumnIndex("air_group")));
 		}
 		c.close();
-		db.close();	
+		db.close();*/
+		Ship ship = getIntent().getParcelableExtra("ship");
+		((TextView)findViewById(R.id.textname)).setText(ship.category + " " + ship.name);
+		((TextView)findViewById(R.id.textbuild)).setText(ship.build);
+		((TextView)findViewById(R.id.textfate)).setText(ship.summary);
+		((TextView)findViewById(R.id.textdisp)).setText(getString(R.string.act3_vodoizm) + "\n" + ship.displacement);
+		((TextView)findViewById(R.id.textlength)).setText(getString(R.string.act3_length) + "\n" + ship.length);
+		((TextView)findViewById(R.id.textwidth)).setText(getString(R.string.act3_width) + "\n" + ship.width);
+		((TextView)findViewById(R.id.textdraft)).setText(getString(R.string.act3_draft) + "\n" + ship.draft);
+		((TextView)findViewById(R.id.textcrew)).setText(getString(R.string.act3_crew) + "\n" + ship.crew);
+		((TextView)findViewById(R.id.textpower)).setText(getString(R.string.act3_power) + "\n" + ship.power);
+		((TextView)findViewById(R.id.textspeed)).setText(getString(R.string.act3_speed) + "\n" + ship.speed);
+		((TextView)findViewById(R.id.textart)).setText(getString(R.string.act3_art) + "\n" + ship.arming);
 	}
 	/**
 	 * Обработка нажатия на кнопку Редактировать
