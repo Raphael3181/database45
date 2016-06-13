@@ -112,7 +112,7 @@ public class EditActivity extends Activity{
 				try {
 					if(intent.getStringExtra("action").equals("add"))
 					return ServerAPI.sendShip(ship.getJSON());
-					else return ServerAPI.editShip(ship.getJSON());
+					else return ServerAPI.sendShip(ship.getJSON());
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 					return false;

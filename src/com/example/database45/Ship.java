@@ -12,6 +12,7 @@ import android.os.Parcelable;
 
 public class Ship implements Parcelable {
 	
+	public long id = 0L; // ID корабля
 	public String category; // Класс судна
 	public String country; // Страна службы
 	public String name; // Название
@@ -38,6 +39,7 @@ public class Ship implements Parcelable {
 	 */
 	public Ship(JSONObject json) {
 		try {
+			id = json.getLong("id");
 			category = json.getJSONObject("category").getString("name");
 			country = json.getJSONObject("country").getString("name");
 			name = json.getString("name");
@@ -62,6 +64,7 @@ public class Ship implements Parcelable {
 	public JSONObject getJSON() {
 		JSONObject json = new JSONObject();
 		try {
+			if(id != 0L) json.put("id", id);
 			json.put("category", category);
 			json.put("country", country);
 			json.put("name", name);

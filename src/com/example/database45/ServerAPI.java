@@ -54,16 +54,17 @@ public class ServerAPI {
 	}
 	
 	/**
-	 * Отправить корабль
+	 * Отправить или изменить корабль
 	 */
 	public static boolean sendShip(JSONObject json) throws JSONException, MalformedURLException, IOException {
 		return get(json,"sendship").getString("status").equals("OK");
 	}
-	
 	/**
-	 * Отредактировать корабль
+	 * Удалить корабль
 	 */
-	public static boolean editShip(JSONObject json) throws JSONException, MalformedURLException, IOException {
-		return get(json,"editship").getString("status").equals("OK");
+	public static boolean delShip(long id) throws JSONException, MalformedURLException, IOException {
+		JSONObject json = new JSONObject();
+		json.put("id", id);
+		return get(json,"sendship").getString("status").equals("OK");
 	}
 }

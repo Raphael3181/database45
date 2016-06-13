@@ -1,21 +1,30 @@
 package com.example.database45;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import org.json.JSONException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class DetailsActivity extends Activity{
+public class DetailsActivity extends Activity {
+	
+	Ship ship;
 	Intent intent;
-	DetailsActivity act;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		act = this;
 		setContentView(R.layout.activity_three);
+		intent = getIntent();
+		ship = intent.getParcelableExtra("ship");
 	}
 	
 	protected void onResume() {
@@ -27,7 +36,6 @@ public class DetailsActivity extends Activity{
 	 * Загрузка информации о корабле из Intent
 	 */
 	public void loadInfo() {
-		Ship ship = getIntent().getParcelableExtra("ship");
 		((TextView)findViewById(R.id.textname)).setText(ship.category + " " + ship.name);
 		((TextView)findViewById(R.id.textbuild)).setText(ship.build);
 		((TextView)findViewById(R.id.textfate)).setText(ship.summary);
@@ -47,7 +55,7 @@ public class DetailsActivity extends Activity{
 	public void editShip(View v) {
 		Intent i = new Intent(this, EditActivity.class);
 		i.putExtra("action", "edit");
-		i.putExtra("ship",getIntent().getParcelableExtra("ship"));
+		i.putExtra("ship", ship);
 		startActivity(i);
 	}
 	
@@ -58,7 +66,26 @@ public class DetailsActivity extends Activity{
 		new AlertDialog.Builder(this).setTitle(R.string.del_ship)
 		.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-				finish();
+				new AsyncTask<Void, Void, Boolean>() {
+					protected Boolean doInBackground(Void... params) {
+						try {
+							return ServerAPI.delShip(ship.id);
+						} catch (MalformedURLException e) {
+							e.printStackTrace();
+							return false;
+						} catch (JSONException e) {
+							e.printStackTrace();
+							return false;
+						} catch (IOException e) {
+							e.printStackTrace();
+							return false;
+						}
+					}
+					protected void onPostExecute(Boolean result) {
+						if(result) finish(); 
+						else Toast.makeText(DetailsActivity.this, "Ошибка", Toast.LENGTH_SHORT).show();	
+					}
+				}.execute();
 			}
 		}).setNegativeButton(R.string.dialog_no, null)
 		.setCancelable(false).create().show();
