@@ -15,11 +15,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class EditActivity extends Activity{
+public class EditActivity extends Activity {
+	
 	Intent intent;
 	EditText name, build, fate, disp, length, width, draft, crew, power, speed, dist, engine, art, antiAir, airGroup;
 	Spinner country_id, class_id;
 	Ship ship;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_four);
@@ -30,6 +32,7 @@ public class EditActivity extends Activity{
 		if(intent.getStringExtra("action").equals("edit")) loadInfo();
 		loadSpinners();
 	}
+	
 	/**
 	 * Заносим в переменные ссылки на элементы разметки
 	 */
@@ -52,11 +55,12 @@ public class EditActivity extends Activity{
 		country_id = (Spinner)findViewById(R.id.country_select);
 		class_id = (Spinner)findViewById(R.id.class_select);
 	}
+	
 	/**
 	 * Загрузка информации из базы данных
 	 */
 	public void loadInfo() {
-		name.setText(ship.category + " " + ship.name);
+		name.setText(ship.name);
 		build.setText(ship.build);
 		fate.setText(ship.summary);
 		disp.setText(String.valueOf(ship.displacement));
@@ -86,6 +90,7 @@ public class EditActivity extends Activity{
 		if (id.equals("Линкор")) return 4;
 		return 0;
 	}
+	
 	/**
 	 * Обработка нажатия кнопки сохранить
 	 */
@@ -110,9 +115,7 @@ public class EditActivity extends Activity{
 		new AsyncTask<Void, Void, Boolean>() {
 			protected Boolean doInBackground(Void... params) {
 				try {
-					if(intent.getStringExtra("action").equals("add"))
 					return ServerAPI.sendShip(ship.getJSON());
-					else return ServerAPI.sendShip(ship.getJSON());
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 					return false;

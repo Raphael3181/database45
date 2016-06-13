@@ -91,6 +91,7 @@ public class Ship implements Parcelable {
 	 * Распаковка из Parcel
 	 */
 	public Ship(Parcel in) {
+		id = in.readLong();
 		category = in.readString();
 		country = in.readString();
 		name = in.readString();
@@ -120,6 +121,7 @@ public class Ship implements Parcelable {
 	 * запаковка в Parcel
 	 */
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(id);
 		dest.writeString(category);
 		dest.writeString(country);
 		dest.writeString(name);
