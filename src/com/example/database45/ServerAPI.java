@@ -35,7 +35,7 @@ public class ServerAPI {
 	 * Запрос к серверу и получение ответа
 	 */
 	private static JSONObject getShips(JSONObject json) throws JSONException, MalformedURLException, IOException {
-		HttpURLConnection connection = (HttpURLConnection) new URL("http://192.168.1.4:9000/api/ships").openConnection();
+		HttpURLConnection connection = (HttpURLConnection) new URL("https://warships-db.herokuapp.com/api/ships").openConnection();
 		connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
 		connection.setRequestProperty("Accept", "application/json;charset=UTF-8");
 		connection.setRequestMethod("POST");
