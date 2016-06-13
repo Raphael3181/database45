@@ -26,7 +26,7 @@ public class ServerAPI {
 		json.put("battleship", classes[1]);
 		json.put("cruiser", classes[2]);
 		json.put("destroyer", classes[3]);
-		json = getShips(json);
+		json = get(json,"ships");
 		JSONArray ships = json.getJSONArray("ships");
 		for(int i=0; i < ships.length(); i++) result.add(new Ship(ships.getJSONObject(i)));
 		return result;
@@ -34,8 +34,8 @@ public class ServerAPI {
 	/**
 	 * Запрос к серверу и получение ответа
 	 */
-	private static JSONObject getShips(JSONObject json) throws JSONException, MalformedURLException, IOException {
-		HttpURLConnection connection = (HttpURLConnection) new URL("https://warships-db.herokuapp.com/api/ships").openConnection();
+	private static JSONObject get(JSONObject json, String path) throws JSONException, MalformedURLException, IOException {
+		HttpURLConnection connection = (HttpURLConnection) new URL("https://warships-db.herokuapp.com/api/" + path).openConnection();
 		connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
 		connection.setRequestProperty("Accept", "application/json;charset=UTF-8");
 		connection.setRequestMethod("POST");
@@ -51,5 +51,19 @@ public class ServerAPI {
 		reader.close();
 		connection.disconnect();
 		return new JSONObject(jsonstr);
+	}
+	
+	/**
+	 * Отправить корабль
+	 */
+	public static boolean sendShip(JSONObject json) throws JSONException, MalformedURLException, IOException {
+		return get(json,"sendship").getString("status").equals("OK");
+	}
+	
+	/**
+	 * Отредактировать корабль
+	 */
+	public static boolean editShip(JSONObject json) throws JSONException, MalformedURLException, IOException {
+		return get(json,"editship").getString("status").equals("OK");
 	}
 }

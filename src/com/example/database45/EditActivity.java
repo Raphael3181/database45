@@ -1,27 +1,30 @@
 package com.example.database45;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import org.json.JSONException;
+
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditActivity extends Activity{
 	Intent intent;
 	EditText name, build, fate, disp, length, width, draft, crew, power, speed, dist, engine, art, antiAir, airGroup;
 	Spinner country_id, class_id;
-	int country=1, cls=1;
+	Ship ship;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_four);
 		intent = getIntent();
+		ship = intent.getParcelableExtra("ship");
 		initTextViews();
 		//Если действие Редактирование загружаем информацию о корабле
 		if(intent.getStringExtra("action").equals("edit")) loadInfo();
@@ -53,88 +56,91 @@ public class EditActivity extends Activity{
 	 * Загрузка информации из базы данных
 	 */
 	public void loadInfo() {
-		SQLiteDatabase db = new DBHelper(this, "ships.sqlite").getWritableDatabase();
-		Intent intent = getIntent();
-    	String selection = "_id = '" + intent.getStringExtra("id") + "'";
-		Cursor c = db.query("s_ships", null, selection, null, null, null, null);
-		if(c.moveToFirst()){
-			name.setText(c.getString(c.getColumnIndex("name")));
-			build.setText(c.getString(c.getColumnIndex("building")));
-			fate.setText(c.getString(c.getColumnIndex("fate")));
-			disp.setText(String.valueOf(c.getInt(c.getColumnIndex("displacement"))));
-			length.setText(String.valueOf(c.getDouble(c.getColumnIndex("length"))));
-			width.setText(String.valueOf(c.getDouble(c.getColumnIndex("width"))));
-			draft.setText(String.valueOf(c.getDouble(c.getColumnIndex("draft"))));
-			crew.setText(String.valueOf(c.getInt(c.getColumnIndex("crew"))));
-			power.setText(String.valueOf(c.getString(c.getColumnIndex("power"))));
-			speed.setText(String.valueOf(c.getDouble(c.getColumnIndex("speed"))));
-			dist.setText(String.valueOf(c.getInt(c.getColumnIndex("distance"))));
-			engine.setText(c.getString(c.getColumnIndex("engine")));
-			art.setText(c.getString(c.getColumnIndex("artillery")));
-			antiAir.setText(c.getString(c.getColumnIndex("antiaircraft")));
-			airGroup.setText(c.getString(c.getColumnIndex("air_group")));
-			country=c.getInt(c.getColumnIndex("country_id"));
-			cls=c.getInt(c.getColumnIndex("class_id"));
-		}
-		c.close();
-		db.close();	
+		name.setText(ship.category + " " + ship.name);
+		build.setText(ship.build);
+		fate.setText(ship.summary);
+		disp.setText(ship.displacement);
+		length.setText(String.valueOf(ship.length));
+		width.setText(String.valueOf(ship.width));
+		draft.setText(String.valueOf(ship.draft));
+		crew.setText(String.valueOf(ship.crew));
+		power.setText(String.valueOf(ship.power));
+		speed.setText(String.valueOf(ship.speed));
+		art.setText(ship.arming);
+		antiAir.setText(String.valueOf(ship.antiAir));
+		airGroup.setText(String.valueOf(ship.airGroup));		
+	}
+	
+	private int getCountry(String id) {
+		if (id.equals("СССР")) return 1;
+		if (id.equals("Япония")) return 2;
+		if (id.equals("США")) return 3;
+		if (id.equals("Германия")) return 4;
+		return 0;	
+	}
+	
+	private int getClass(String id){		
+		if (id.equals("Линкор")) return 1;
+		if (id.equals("Крейсер")) return 2;
+		if (id.equals("Эсминец")) return 3;
+		if (id.equals("Авианосец")) return 4;
+		return 0;
 	}
 	/**
 	 * Обработка нажатия кнопки сохранить
 	 */
 	public void addOrEditShip(View v) {
-		SQLiteDatabase db = new DBHelper(this, "ships.sqlite").getWritableDatabase();
-		ContentValues cv = new ContentValues();
-		cv.put("name", name.getText().toString());
-		cv.put("building", build.getText().toString());
-		cv.put("fate", fate.getText().toString());
-		cv.put("displacement", disp.getText().toString());
-		cv.put("length", length.getText().toString());
-		cv.put("width", width.getText().toString());
-		cv.put("draft", draft.getText().toString());
-		cv.put("engine", engine.getText().toString());
-		cv.put("power", power.getText().toString());
-		cv.put("speed", speed.getText().toString());
-		cv.put("distance", dist.getText().toString());
-		cv.put("crew", crew.getText().toString());
-		cv.put("artillery", art.getText().toString());
-		cv.put("antiaircraft", antiAir.getText().toString());
-		cv.put("air_group", airGroup.getText().toString());
-		cv.put("class_id", class_id.getSelectedItemPosition() + 1);
-		cv.put("country_id", country_id.getSelectedItemPosition() + 1);
-		if(intent.getStringExtra("action").equals("add")) db.insert("s_ships", null, cv);
-		else db.update("s_ships", cv, "_id = ?", new String[] {intent.getStringExtra("id")}); 
-	    super.onBackPressed();
+		ship.name = name.getText().toString();
+		ship.build = build.getText().toString();
+		ship.summary = fate.getText().toString();
+		ship.displacement = Integer.parseInt(disp.getText().toString());
+		ship.length = Double.parseDouble(length.getText().toString());
+		ship.width = Double.parseDouble(width.getText().toString());
+		ship.draft = Double.parseDouble(draft.getText().toString());
+		ship.engine = engine.getText().toString();
+		ship.power = Integer.parseInt(power.getText().toString());
+		ship.speed = Integer.parseInt(speed.getText().toString());
+		ship.distance = Integer.parseInt(dist.getText().toString());
+		ship.crew = Integer.parseInt(crew.getText().toString());
+		ship.artillery = art.getText().toString();
+		ship.antiAir = antiAir.getText().toString();
+		ship.airGroup = airGroup.getText().toString();
+		ship.category =class_id.getSelectedItem().toString();
+		ship.country = country_id.getSelectedItem().toString();		
+		new AsyncTask<Void, Void, Boolean>() {
+			protected Boolean doInBackground(Void... params) {
+				try {
+					if(intent.getStringExtra("action").equals("add"))
+					return ServerAPI.sendShip(ship.getJSON());
+					else return ServerAPI.editShip(ship.getJSON());
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+					return false;
+				} catch (JSONException e) {
+					e.printStackTrace();
+					return false;
+				} catch (IOException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+			protected void onPostExecute(Boolean result) {
+				if(result) finish(); 
+				else Toast.makeText(EditActivity.this, "Ошибка", Toast.LENGTH_SHORT).show();	
+			}
+		}.execute();
 	}
 	
 	public void loadSpinners () {
-		SQLiteDatabase db = new DBHelper(this, "ships.sqlite").getWritableDatabase();
-		Cursor c = db.query("s_class", null, null, null, null, null, null);
-		String data[] = new String[c.getCount()];
-		if(c.moveToFirst()){
-			for(int i = 0; i < c.getCount(); i++) {
-				data[i] = c.getString(c.getColumnIndex("class_name"));
-				c.moveToNext();
-			}
-		}
+		String data[] = new String[] {"Линкор", "Крейсер", "Эсминец",	"Авианосец"};
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data);
 	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);  
 	    class_id.setAdapter(adapter);
-	    
-	    c = db.query("s_country", null, null, null, null, null, null);
-		data = new String[c.getCount()];
-		if(c.moveToFirst()){
-			for(int i = 0; i < c.getCount(); i++) {
-				data[i] = c.getString(c.getColumnIndex("country_name"));
-				c.moveToNext();
-			}
-		}
+	    data = new String[] {"СССР", "Япония", "США",	"Германия"};
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data);
 	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);  
-	    country_id.setAdapter(adapter);
-		c.close();
-		db.close();
-		country_id.setSelection(country-1);
-		class_id.setSelection(cls-1);
+	    country_id.setAdapter(adapter);		
+		country_id.setSelection(getCountry(ship.country)-1);
+		class_id.setSelection(getClass(ship.category)-1);
 	}
 }

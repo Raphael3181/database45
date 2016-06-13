@@ -21,10 +21,15 @@ public class Ship implements Parcelable {
 	public double length; // Длина в м
 	public double width; // Ширина в м
 	public double draft; // Осадка в м
+	public String engine; //Движитель
 	public int power; // Мощность в л. с.
 	public int speed; // Скорость в узлах
+	public int distance;//Дальность хода
 	public int crew; // Экипаж
+	public String artillery; // Артиллерия
 	public String arming; // Вооружение
+	public String antiAir; //ПВО
+	public String airGroup; //Авиагруппа
 	
 	private static SimpleDateFormat sdf = new SimpleDateFormat("d MMMM y г.", new Locale("ru", "RU"));
 	
@@ -42,11 +47,41 @@ public class Ship implements Parcelable {
 			length = json.getDouble("length");
 			width = json.getDouble("width");
 			draft = json.getDouble("draft");
+			engine = json.getString("engine");
 			power = json.getInt("power");
 			speed = json.getInt("speed");
+			distance = json.getInt("distance");
 			crew = json.getInt("crew");
+			artillery = json.getString("artillery");
 			arming = json.getString("arming");
+			antiAir = json.getString("antiAir");
+			airGroup = json.getString("airGroup"); 
 		} catch (JSONException e) {}
+	}
+	
+	public JSONObject getJSON() {
+		JSONObject json = new JSONObject();
+		try {
+			category = json.getJSONObject("category").getString("name");
+			country = json.getJSONObject("country").getString("name");
+			json.put("name", name);
+			json.put("summary", summary);
+			json.put("build", build);
+			json.put("displacement", displacement);
+			json.put("length", length);
+			json.put("width", width);
+			json.put("draft", draft);
+			json.put("engine", engine);
+			json.put("power", power);
+			json.put("speed", speed);
+			json.put("distance", distance);
+			json.put("crew", crew);
+			json.put("artillery", artillery);
+			json.put("arming", arming);
+			json.put("antiAir", antiAir);
+			json.put("airGroup", airGroup);
+			return json;
+		} catch (JSONException e) {return null;}
 	}
 	
 	/**
@@ -62,10 +97,14 @@ public class Ship implements Parcelable {
 		length = in.readDouble();
 		width = in.readDouble();
 		draft = in.readDouble();
+		engine = in.readString();
 		power = in.readInt();
 		speed = in.readInt();
 		crew = in.readInt();
 		arming = in.readString();
+		artillery = in.readString();
+		antiAir = in.readString();
+		airGroup = in.readString();
 	}
 
 	@Override
@@ -87,10 +126,14 @@ public class Ship implements Parcelable {
 		dest.writeDouble(length);
 		dest.writeDouble(width);
 		dest.writeDouble(draft);
+		dest.writeString(engine);
 		dest.writeInt(power);
 		dest.writeInt(speed);
 		dest.writeInt(crew);
 		dest.writeString(arming);
+		dest.writeString(artillery);
+		dest.writeString(antiAir);
+		dest.writeString(airGroup);
 	}
 	
 	public static final Creator<Ship> CREATOR = new Creator<Ship>() {
