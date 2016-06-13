@@ -2,13 +2,13 @@
 <resources>
 
     <string name="app_name">Справочник кораблей</string>
-    <string name="check_box1">Линкор</string>
-    <string name="check_box2">Крейсер</string>
-    <string name="check_box3">Эсминец</string>
-    <string name="check_box4">Авианосец</string>
+    <string name="check_box1">Крейсер</string>
+    <string name="check_box2">Эсминец</string>
+    <string name="check_box3">Авианосец</string>
+    <string name="check_box4">Линкор</string>
     <string name="butt_nation1">СССР</string>
-    <string name="butt_nation2">Япония</string>
-    <string name="butt_nation3">США</string>
+    <string name="butt_nation2">США</string>
+    <string name="butt_nation3">Япония</string>
     <string name="butt_nation4">Германия</string>
     <string name="butt_add_ship">Добавить Корабль</string>
     <string name="act3_vodoizm">Водоизм.</string>
