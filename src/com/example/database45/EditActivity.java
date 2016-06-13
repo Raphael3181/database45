@@ -59,7 +59,7 @@ public class EditActivity extends Activity{
 		name.setText(ship.category + " " + ship.name);
 		build.setText(ship.build);
 		fate.setText(ship.summary);
-		disp.setText(ship.displacement);
+		disp.setText(String.valueOf(ship.displacement));
 		length.setText(String.valueOf(ship.length));
 		width.setText(String.valueOf(ship.width));
 		draft.setText(String.valueOf(ship.draft));
@@ -67,8 +67,8 @@ public class EditActivity extends Activity{
 		power.setText(String.valueOf(ship.power));
 		speed.setText(String.valueOf(ship.speed));
 		art.setText(ship.arming);
-		antiAir.setText(String.valueOf(ship.antiAir));
-		airGroup.setText(String.valueOf(ship.airGroup));		
+		antiAir.setText(ship.antiAir);
+		airGroup.setText(ship.airGroup);		
 	}
 	
 	private int getCountry(String id) {
@@ -79,11 +79,11 @@ public class EditActivity extends Activity{
 		return 0;	
 	}
 	
-	private int getClass(String id){		
-		if (id.equals("Линкор")) return 1;
-		if (id.equals("Крейсер")) return 2;
-		if (id.equals("Эсминец")) return 3;
-		if (id.equals("Авианосец")) return 4;
+	private int getClass(String id) {
+		if (id.equals("Крейсер")) return 1;
+		if (id.equals("Эсминец")) return 2;
+		if (id.equals("Авианосец")) return 3;
+		if (id.equals("Линкор")) return 4;
 		return 0;
 	}
 	/**
@@ -105,7 +105,7 @@ public class EditActivity extends Activity{
 		ship.artillery = art.getText().toString();
 		ship.antiAir = antiAir.getText().toString();
 		ship.airGroup = airGroup.getText().toString();
-		ship.category =class_id.getSelectedItem().toString();
+		ship.category = class_id.getSelectedItem().toString();
 		ship.country = country_id.getSelectedItem().toString();		
 		new AsyncTask<Void, Void, Boolean>() {
 			protected Boolean doInBackground(Void... params) {
@@ -132,11 +132,11 @@ public class EditActivity extends Activity{
 	}
 	
 	public void loadSpinners () {
-		String data[] = new String[] {"Линкор", "Крейсер", "Эсминец",	"Авианосец"};
+		String data[] = new String[] { "Крейсер", "Эсминец", "Авианосец", "Линкор" };
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data);
 	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);  
 	    class_id.setAdapter(adapter);
-	    data = new String[] {"СССР", "Япония", "США",	"Германия"};
+	    data = new String[] { "СССР", "Япония", "США", "Германия" };
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data);
 	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);  
 	    country_id.setAdapter(adapter);		

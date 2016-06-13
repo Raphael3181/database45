@@ -43,8 +43,8 @@ public class ListActivity extends Activity {
 		capture = (TextView)findViewById(R.id.textnation);
 		int country = getIntent().getIntExtra("Country" , 0);
 		if (country == 1) capture.setText("СССР");
-		if (country == 3) capture.setText("Япония");
-		if (country == 2) capture.setText("США");
+		if (country == 2) capture.setText("Япония");
+		if (country == 3) capture.setText("США");
 		if (country == 4) capture.setText("Германия");
 	}
 	

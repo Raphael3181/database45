@@ -62,8 +62,8 @@ public class Ship implements Parcelable {
 	public JSONObject getJSON() {
 		JSONObject json = new JSONObject();
 		try {
-			category = json.getJSONObject("category").getString("name");
-			country = json.getJSONObject("country").getString("name");
+			json.put("category", category);
+			json.put("country", country);
 			json.put("name", name);
 			json.put("summary", summary);
 			json.put("build", build);
@@ -81,7 +81,7 @@ public class Ship implements Parcelable {
 			json.put("antiAir", antiAir);
 			json.put("airGroup", airGroup);
 			return json;
-		} catch (JSONException e) {return null;}
+		} catch (JSONException e) { return null; }
 	}
 	
 	/**
