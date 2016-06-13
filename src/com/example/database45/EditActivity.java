@@ -70,6 +70,8 @@ public class EditActivity extends Activity {
 		crew.setText(String.valueOf(ship.crew));
 		power.setText(String.valueOf(ship.power));
 		speed.setText(String.valueOf(ship.speed));
+		dist.setText(String.valueOf(ship.distance));
+		engine.setText(ship.engine);
 		art.setText(ship.arming);
 		antiAir.setText(ship.antiAir);
 		airGroup.setText(ship.airGroup);		
